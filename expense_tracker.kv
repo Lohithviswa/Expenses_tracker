@@ -1,0 +1,49 @@
+# expense_tracker.kv
+<ExpenseTrackerApp>:
+    BoxLayout:
+        orientation: 'vertical'
+        spacing: 10
+        padding: 10
+
+        Label:
+            text: "Expense Tracker"
+            font_size: '24sp'
+
+        BoxLayout:
+            orientation: 'horizontal'
+            spacing: 10
+
+            TextInput:
+                hint_text: "Enter expense amount"
+                multiline: False
+                id: date_input
+
+            TextInput:
+                hint_text: "Enter expense amount"
+                multiline: False
+                input_filter: 'float'
+                id: expense_input
+
+            Spinner:
+                text: "Select category"
+                values: ["Food", "Transportation", "Utilities", "Entertainment", "Other"]
+                id:category_input
+
+            Button:
+                text: "Add Expense"
+                on_press: root.add_expense(self)
+
+        Label:
+            text: "Total Expenses: ${:.2f}".format(root.total_expenses)
+            size_hint_y: None
+            height: 30
+
+        ScrollView:
+            Label:
+                text: root.format_expense_history()
+                size_hint_y: None
+                height: 200
+
+        Button:
+            text: "Clear History"
+            on_press: root.clear_history()
